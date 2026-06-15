@@ -1,0 +1,263 @@
+
+
+{% block title %}La Carte — Le 44 de Seclin{% endblock %}
+{% block meta_description %} marché, renouvelée selon les saisons.{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* ── PAGE HEADER ── */
+        .page-header {
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10rem 2rem 5rem;
+            background:
+                linear-gradient(to bottom, rgba(14,13,11,0.7), rgba(14,13,11,0.9)),
+                url('{{ asset("images/hero-restaurant.jpg") }}') center/cover no-repeat;
+        }
+
+        /* ── MENU ── */
+        #menu { background: var(--noir); }
+        .menu-tabs {
+            display: flex;
+            gap: 0;
+            justify-content: center;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid rgba(184,150,90,0.2);
+        }
+        .menu-tab {
+            font-family: var(--sans);
+            font-size: 0.68rem;
+            font-weight: 300;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gris);
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .menu-tab.active { color: var(--or); border-bottom-color: var(--or); }
+        .menu-tab:hover { color: var(--or-clair); }
+        .menu-panel { display: none; }
+        .menu-panel.active { display: block; }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        .menu-item {
+            border-top: 1px solid rgba(184,150,90,0.2);
+            padding-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1rem;
+        }
+        .menu-item-name {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--blanc);
+        }
+        .menu-item-price {
+            font-family: var(--sans);
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--or);
+            white-space: nowrap;
+        }
+        .menu-item-desc {
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--gris);
+            line-height: 1.6;
+        }
+        .menu-note {
+            text-align: center;
+            margin-top: 3.5rem;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--gris);
+        }
+
+        @media (max-width: 600px) {
+            .menu-tabs { overflow-x: auto; }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    {# ── EN-TÊTE DE PAGE ── #}
+    <div class="page-header">
+        <p class="section-label" style="animation: fadeUp 1s 0.2s both;">La carte</p>
+        <h1 class="section-title" style="animation: fadeUp 1s 0.4s both;">Nos <em>suggestions</em></h1>
+        <div class="ornement" style="animation: fadeUp 1s 0.5s both;"><div class="ornement-line"></div><div class="ornement-diamond"></div><div class="ornement-line right"></div></div>
+        <p class="section-intro" style="animation: fadeUp 1s 0.6s both; margin-bottom:0;">Une cuisine du marché, renouvelée selon les saisons et l'humeur du chef.</p>
+    </div>
+
+    {# ── LA CARTE ── #}
+    <section id="menu">
+        <div class="container">
+            <div class="menu-tabs reveal">
+                <button class="menu-tab active" data-tab="entrees">Entrées</button>
+                <button class="menu-tab" data-tab="plats">Plats</button>
+                <button class="menu-tab" data-tab="desserts">Desserts</button>
+                <button class="menu-tab" data-tab="formules">Formules</button>
+            </div>
+
+            <div class="menu-panel active" id="tab-entrees">
+                <div class="menu-grid">
+                    <div class="menu-item reveal">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Terrine de foie de volaille</span>
+                            <span class="menu-item-price">9,50 €</span>
+                        </div>
+                        <p class="menu-item-desc">Chutney de figues maison, pain grillé au levain</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.1s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Velouté de butternut</span>
+                            <span class="menu-item-price">8,00 €</span>
+                        </div>
+                        <p class="menu-item-desc">Crème fraîche, graines de courge torréfiées, huile de noisette</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.2s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Salade du 44</span>
+                            <span class="menu-item-price">10,50 €</span>
+                        </div>
+                        <p class="menu-item-desc">Lardons fumés, croûtons, œuf poché, vinaigrette moutarde ancienne</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.3s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Croquettes de maroilles</span>
+                            <span class="menu-item-price">11,00 €</span>
+                        </div>
+                        <p class="menu-item-desc">Salade mesclun, confiture d'oignons au vin rouge</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-panel" id="tab-plats">
+                <div class="menu-grid">
+                    <div class="menu-item reveal">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Carbonnade flamande</span>
+                            <span class="menu-item-price">18,50 €</span>
+                        </div>
+                        <p class="menu-item-desc">Mijotée à la bière Leffe brune, frites maison, salade</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.1s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Filet de cabillaud</span>
+                            <span class="menu-item-price">19,00 €</span>
+                        </div>
+                        <p class="menu-item-desc">Écrasé de pommes de terre à la ciboulette, vierge d'agrumes</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.2s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Entrecôte charolaise</span>
+                            <span class="menu-item-price">24,00 €</span>
+                        </div>
+                        <p class="menu-item-desc">250g, sauce au poivre ou beurre maître d'hôtel, frites ou gratin</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.3s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Poulet rôti aux herbes</span>
+                            <span class="menu-item-price">16,50 €</span>
+                        </div>
+                        <p class="menu-item-desc">Légumes de saison rôtis, jus corsé, pommes sarladaises</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-panel" id="tab-desserts">
+                <div class="menu-grid">
+                    <div class="menu-item reveal">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Tarte Tatin maison</span>
+                            <span class="menu-item-price">7,50 €</span>
+                        </div>
+                        <p class="menu-item-desc">Crème fraîche épaisse, caramel beurre salé</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.1s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Fondant au chocolat</span>
+                            <span class="menu-item-price">7,00 €</span>
+                        </div>
+                        <p class="menu-item-desc">Cœur coulant, glace vanille Bourbon, tuile croustillante</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.2s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Assiette de fromages</span>
+                            <span class="menu-item-price">8,50 €</span>
+                        </div>
+                        <p class="menu-item-desc">Sélection de fromages du Nord, pain aux noix, raisins frais</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.3s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Crème brûlée</span>
+                            <span class="menu-item-price">6,50 €</span>
+                        </div>
+                        <p class="menu-item-desc">À la vanille de Madagascar, caramel craquant</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-panel" id="tab-formules">
+                <div class="menu-grid">
+                    <div class="menu-item reveal" style="border-top-color:var(--or); padding-top:1.5rem">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name" style="font-size:1.4rem">Formule Midi</span>
+                            <span class="menu-item-price" style="font-size:1.1rem">14,90 €</span>
+                        </div>
+                        <p class="menu-item-desc">Plat du jour + boisson (eau ou café) · Du lundi au vendredi</p>
+                    </div>
+                    <div class="menu-item reveal" style="border-top-color:var(--or); transition-delay:0.1s; padding-top:1.5rem">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name" style="font-size:1.4rem">Formule Entrée-Plat ou Plat-Dessert</span>
+                            <span class="menu-item-price" style="font-size:1.1rem">19,90 €</span>
+                        </div>
+                        <p class="menu-item-desc">Au choix dans notre sélection du jour</p>
+                    </div>
+                    <div class="menu-item reveal" style="border-top-color:var(--or); transition-delay:0.2s; padding-top:1.5rem">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name" style="font-size:1.4rem">Menu Complet</span>
+                            <span class="menu-item-price" style="font-size:1.1rem">24,90 €</span>
+                        </div>
+                        <p class="menu-item-desc">Entrée + Plat + Dessert · Midi et soir</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="menu-note reveal">Carte disponible en version complète sur demande · Allergènes disponibles auprès du service</p>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        // Tabs menu
+        document.querySelectorAll('.menu-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
+{% endblock %}
