@@ -1,4 +1,4 @@
-# site-car-wash
+# le44
 Ce projet consiste en la création d’un site web professionnel pour un restaurant, développé dans le cadre de mon stage de fin d'annee
 
 Le site  offre la possibilité de réserver une prestation, de gérer ses rendez‑vous, de recevoir des notifications et de communiquer avec le restaurant.
