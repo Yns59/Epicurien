@@ -1,18 +1,25 @@
-
 services:
-###> doctrine/doctrine-bundle ###
   database:
-    ports:
-      - "5432"
-###< doctrine/doctrine-bundle ###
-
-###> symfony/mailer ###
-  mailer:
-    image: axllent/mailpit
-    ports:
-      - "1025"
-      - "8025"
+    image: postgres:18.3
     environment:
-      MP_SMTP_AUTH_ACCEPT_ANY: 1
-      MP_SMTP_AUTH_ALLOW_INSECURE: 1
-###< symfony/mailer ###
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=le_44
+      - POSTGRES_DB=le_44
+    volumes:
+      - db_data:/var/lib/postgresql:rw
+    ports:
+      - target: 5432
+        published: 5432
+        protocol: tcp
+
+
+
+
+
+volumes:
+  db_data:
+
+
+
+
+

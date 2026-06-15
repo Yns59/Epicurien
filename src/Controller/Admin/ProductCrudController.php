@@ -31,6 +31,7 @@ class ProductCrudController extends AbstractCrudController
                 ->maxSize(10 * 1024 * 1024)
                 ->setRequired(false),
 
+
         ];
     }
 }

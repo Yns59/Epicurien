@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Product
 {
     #[ORM\Id]
@@ -31,7 +32,9 @@ class Product
 
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $updatedAt;
+
     #[ORM\Column(length: 255, nullable: true)]
+
     private ?string $image = null;
 
     public function __construct()
@@ -63,4 +66,21 @@ class Product
 
     public function getUpdatedAt(): \DateTimeInterface { return $this->updatedAt; }
     public function setUpdatedAt(\DateTimeInterface $updatedAt): static { $this->updatedAt = $updatedAt; return $this; }
+
+
+    #[ORM\PreRemove]
+    public function deleteImage():void{
+        if($this->image===null){
+            return;
+
+        }
+        $chemin='/Users/younes/site/le44/public/uploads/images/'.$this->image;
+
+
+        if (file_exists($chemin)){
+            unlink($chemin);
+        }
+
+
+    }
 }
