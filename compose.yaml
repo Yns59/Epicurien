@@ -1,0 +1,49 @@
+# Configuration Docker Compose pour le projet "le44"
+services:
+
+  # --- PHP (Le Cerveau) ---
+  php:
+    build: ./docker/php
+    volumes:
+      - .:/var/www:delegated # Partage du code source
+    depends_on:
+      - database
+
+  # --- NGINX (Le Réceptionniste) ---
+  nginx:
+    build: ./docker/nginx # Utilise le Dockerfile dans docker/nginx
+    ports:
+      - "8080:80" # On accède au site via http://localhost:8080
+    volumes:
+      - .:/var/www:delegated # Partage du code source pour les assets
+    depends_on:
+      - php
+
+  # --- POSTGRESQL (La Mémoire) ---
+  database:
+    image: postgres:16-alpine # Version stable et légère
+    environment:
+      POSTGRES_USER: le_44
+      POSTGRES_PASSWORD: le_44
+      POSTGRES_DB: le_44
+    volumes:
+      - db_data:/var/lib/postgresql/data # /data est OBLIGATOIRE
+    ports:
+      - "5432:5432"
+
+  adminer:
+    image: adminer:latest
+    depends_on:
+      - database
+    environment:
+      APP_ENV: dev
+      ADMINER_DESIGN: pepa-linha
+      ADMINER_DEFAULT_SERVER: database
+      ADMINER_PLUGINS: tables-filter frames dump-json edit-calendar tinymce
+
+    ports:
+      - "8888:8080"
+
+
+volumes:
+  db_data:
