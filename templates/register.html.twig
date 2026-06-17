@@ -1,0 +1,361 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription — Le 44 de Seclin{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* ── PAGE INSCRIPTION ── */
+        #auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10rem 2rem 5rem;
+            background:
+                linear-gradient(to bottom, rgba(14,13,11,0.75), rgba(14,13,11,0.92)),
+                url('{{ asset("images/hero-restaurant.jpg") }}') center/cover no-repeat;
+            position: relative;
+        }
+
+        .auth-card {
+            background: var(--noir-doux);
+            border: 1px solid rgba(184,150,90,0.25);
+            max-width: 480px;
+            width: 100%;
+            padding: 3.5rem 3rem;
+            position: relative;
+        }
+
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: 50%;
+            transform: translateX(-50%);
+            width: 80px; height: 1px;
+            background: var(--or);
+        }
+
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .auth-logo a {
+            font-family: var(--serif);
+            font-size: 1.6rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            color: var(--or);
+            text-decoration: none;
+        }
+        .auth-logo a span {
+            font-style: italic;
+            color: var(--creme);
+        }
+
+        .auth-title {
+            font-family: var(--serif);
+            font-size: 2.2rem;
+            font-weight: 300;
+            text-align: center;
+            color: var(--blanc);
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+        .auth-title em { font-style: italic; color: var(--or-clair); }
+
+        .auth-subtitle {
+            font-size: 0.95rem;
+            font-style: italic;
+            font-weight: 300;
+            color: var(--gris);
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .auth-ornement {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+        }
+        .auth-ornement-line {
+            width: 40px; height: 1px;
+            background: linear-gradient(to right, transparent, var(--or));
+        }
+        .auth-ornement-line.right { background: linear-gradient(to left, transparent, var(--or)); }
+        .auth-ornement-diamond {
+            width: 6px; height: 6px;
+            background: var(--or);
+            transform: rotate(45deg);
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+        }
+
+        .auth-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .auth-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .auth-group label {
+            font-family: var(--sans);
+            font-size: 0.62rem;
+            font-weight: 200;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gris);
+        }
+        .auth-group input {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(184,150,90,0.25);
+            color: var(--creme);
+            padding: 0.85rem 1rem;
+            font-family: var(--serif);
+            font-size: 1rem;
+            font-weight: 300;
+            transition: border-color 0.3s, background 0.3s;
+            outline: none;
+            width: 100%;
+        }
+        .auth-group input:focus {
+            border-color: var(--or);
+            background: rgba(255,255,255,0.06);
+        }
+        .auth-group input::placeholder {
+            color: var(--gris);
+            opacity: 0.5;
+        }
+
+        .auth-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            margin-top: 0.3rem;
+        }
+        .auth-checkbox input[type="checkbox"] {
+            width: 16px; height: 16px;
+            margin-top: 2px;
+            accent-color: var(--or);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .auth-checkbox label {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--gris);
+            line-height: 1.5;
+            cursor: pointer;
+        }
+        .auth-checkbox label a {
+            color: var(--or-clair);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(212,176,122,0.3);
+        }
+        .auth-checkbox label a:hover { border-bottom-color: var(--or-clair); }
+
+        .auth-submit {
+            font-family: var(--sans);
+            font-size: 0.72rem;
+            font-weight: 300;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--noir);
+            background: var(--or);
+            border: none;
+            padding: 1.1rem 2rem;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 0.5rem;
+        }
+        .auth-submit:hover { background: var(--or-clair); transform: translateY(-2px); }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.8rem 0;
+        }
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(184,150,90,0.15);
+        }
+        .auth-divider span {
+            font-family: var(--sans);
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gris);
+        }
+
+        .auth-footer {
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--gris);
+        }
+        .auth-footer a {
+            color: var(--or-clair);
+            text-decoration: none;
+            font-style: normal;
+            border-bottom: 1px solid rgba(212,176,122,0.3);
+            transition: border-color 0.3s;
+        }
+        .auth-footer a:hover { border-color: var(--or-clair); }
+
+        .auth-error {
+            background: rgba(192,57,43,0.1);
+            border: 1px solid rgba(192,57,43,0.3);
+            color: #e8a39c;
+            font-size: 0.85rem;
+            font-weight: 300;
+            padding: 0.9rem 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .auth-back {
+            position: absolute;
+            top: 2rem; left: 2rem;
+            font-family: var(--sans);
+            font-size: 0.65rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gris);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+            z-index: 5;
+        }
+        .auth-back:hover { color: var(--or); }
+        .auth-back svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+        @media (max-width: 560px) {
+            .auth-card { padding: 2.5rem 1.8rem; }
+            .auth-row { grid-template-columns: 1fr; }
+            .auth-back { top: 1.2rem; left: 1.2rem; }
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_home') }}" class="auth-back">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Retour au site
+    </a>
+
+    <section id="auth-page">
+        <div class="auth-card reveal visible">
+
+            <div class="auth-logo">
+                <a href="{{ path('app_home') }}">Le <span>44</span> de Seclin</a>
+            </div>
+
+            <h1 class="auth-title">Créer un <em>compte</em></h1>
+            <p class="auth-subtitle">Rejoignez-nous pour réserver plus facilement</p>
+
+            <div class="auth-ornement">
+                <div class="auth-ornement-line"></div>
+                <div class="auth-ornement-diamond"></div>
+                <div class="auth-ornement-line right"></div>
+            </div>
+
+            {% for message in app.flashes('success') %}
+                <div class="auth-success" style="background: rgba(46, 204, 113, 0.1); border: 1px solid rgba(46, 204, 113, 0.3); color: #2ecc71; padding: 0.9rem 1.2rem; margin-bottom: 1rem; font-weight: 300;">{{ message }}</div>
+            {% endfor %}
+
+            {% for message in app.flashes('error') %}
+                <div class="auth-error">{{ message }}</div>
+            {% endfor %}
+
+            {% if error %}
+                <div class="auth-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
+                <div class="auth-row">
+                    <div class="auth-group">
+                        <label for="{{ registrationForm.lastname.vars.id }}">Prénom</label>
+                        {{ form_widget(registrationForm.lastname, {'attr': {'placeholder': 'Jean', 'autocomplete': 'given-name'}}) }}
+                        <div class="form-error">{{ form_errors(registrationForm.lastname) }}</div>
+                    </div>
+                    <div class="auth-group">
+                        <label for="{{ registrationForm.name.vars.id }}">Nom</label>
+                        {{ form_widget(registrationForm.name, {'attr': {'placeholder': 'Dupont', 'autocomplete': 'family-name'}}) }}
+                        <div class="form-error">{{ form_errors(registrationForm.name) }}</div>
+                    </div>
+                </div>
+
+                <div class="auth-group">
+                    <label for="{{ registrationForm.mail.vars.id }}">Adresse email</label>
+                    {{ form_widget(registrationForm.mail, {'attr': {'placeholder': 'jean.dupont@email.com', 'autocomplete': 'email'}}) }}
+                    <div class="form-error">{{ form_errors(registrationForm.mail) }}</div>
+                </div>
+
+                <div class="auth-group">
+                    <label for="{{ registrationForm.number_phone.vars.id }}">Téléphone (optionnel)</label>
+                    {{ form_widget(registrationForm.number_phone, {'attr': {'placeholder': '06 XX XX XX XX', 'autocomplete': 'tel'}}) }}
+                    <div class="form-error">{{ form_errors(registrationForm.number_phone) }}</div>
+                </div>
+
+                <div class="auth-group">
+                    <label for="{{ registrationForm.password.vars.id }}">Mot de passe</label>
+                    {{ form_widget(registrationForm.password, {'attr': {'placeholder': '••••••••', 'autocomplete': 'new-password'}}) }}
+                    <div class="form-error">{{ form_errors(registrationForm.password) }}</div>
+                </div>
+
+                <div class="auth-group">
+                    <label for="confirm_password">Confirmer le mot de passe</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required placeholder="••••••••" autocomplete="new-password" minlength="8">
+                </div>
+
+                {{ form_widget(registrationForm.submit, {'label': 'Créer mon compte', 'attr': {'class': 'auth-submit'}}) }}
+            {{ form_end(registrationForm) }}
+
+            <div class="auth-divider"><span>ou</span></div>
+
+            <p class="auth-footer">
+                Vous avez déjà un compte ? <a href="#" id="openLoginModal">Connectez-vous</a>
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Validation des mots de passe
+        document.querySelector('.auth-form').addEventListener('submit', function(e) {
+            const pwd = document.getElementById('{{ registrationForm.password.vars.id }}').value;
+            const confirm = document.getElementById('confirm_password').value;
+            if (pwd !== confirm) {
+                e.preventDefault();
+                alert('Les mots de passe ne correspondent pas.');
+            }
+        });
+
+        // Ouverture de la modale de connexion
+        document.getElementById('openLoginModal').addEventListener('click', function(e) {
+            e.preventDefault();
+            const loginModal = document.getElementById('loginModal');
+            if (loginModal) {
+                loginModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    </script>
+{% endblock %}

@@ -5,10 +5,12 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -20,6 +22,12 @@ class User
 
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
+
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $mail = null;
+
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
 
     #[ORM\Column]
     private ?int $number_phone = null;
@@ -40,7 +48,6 @@ class User
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -52,22 +59,53 @@ class User
     public function setLastname(string $lastname): static
     {
         $this->lastname = $lastname;
+        return $this;
+    }
+
+    public function getMail(): ?string
+    {
+        return $this->mail;
+    }
+
+    public function setMail(string $mail): static
+    {
+        $this->mail = $mail;
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->mail;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $roles = array_diff($roles, ['ROLE_USER']);
+        $this->roles = $roles;
 
         return $this;
     }
 
-    public function getNumberPhone(): ?int
-    {
-        return $this->number_phone;
-    }
-
-    public function setNumberPhone(int $number_phone): static
-    {
-        $this->number_phone = $number_phone;
-
-        return $this;
-    }
-
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -76,7 +114,26 @@ class User
     public function setPassword(string $password): static
     {
         $this->password = $password;
+        return $this;
+    }
 
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getNumberPhone(): ?int
+    {
+        return $this->number_phone;
+    }
+
+    public function setNumberPhone(?int $number_phone): static
+    {
+        $this->number_phone = $number_phone;
         return $this;
     }
 }

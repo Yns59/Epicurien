@@ -1,6 +1,7 @@
 
+{% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Le 44 de Seclin — Accueil{% endblock %}
 
 {% block stylesheets %}
     <style>
@@ -260,6 +261,213 @@
         @media (max-width: 600px) {
             .chiffres-grid { grid-template-columns: repeat(2, 1fr); }
         }
+
+        /* ── MENU ── */
+        #menu { background: var(--noir); }
+        .menu-tabs {
+            display: flex;
+            gap: 0;
+            justify-content: center;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid rgba(184,150,90,0.2);
+        }
+        .menu-tab {
+            font-family: var(--sans);
+            font-size: 0.68rem;
+            font-weight: 300;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gris);
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .menu-tab.active { color: var(--or); border-bottom-color: var(--or); }
+        .menu-tab:hover { color: var(--or-clair); }
+        .menu-panel { display: none; }
+        .menu-panel.active { display: block; }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        .menu-item {
+            border-top: 1px solid rgba(184,150,90,0.2);
+            padding-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1rem;
+        }
+        .menu-item-name {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--blanc);
+        }
+        .menu-item-price {
+            font-family: var(--sans);
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--or);
+            white-space: nowrap;
+        }
+        .menu-item-desc {
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--gris);
+            line-height: 1.6;
+        }
+        .menu-note {
+            text-align: center;
+            margin-top: 3.5rem;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--gris);
+        }
+
+        /* ── GALERIE ── */
+        #galerie { background: var(--brun); }
+        .galerie-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 280px 280px;
+            gap: 6px;
+        }
+        .galerie-item {
+            overflow: hidden;
+            position: relative;
+        }
+        .galerie-item:first-child { grid-row: span 2; }
+        .galerie-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            display: block;
+        }
+        .galerie-item:hover img { transform: scale(1.06); }
+        .galerie-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(14,13,11,0.6), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .galerie-item:hover .galerie-overlay { opacity: 1; }
+
+        /* ── RÉSERVATION ── */
+        #reservation { background: var(--noir-doux); }
+        .resa-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+        .resa-info p {
+            font-size: 1.05rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--gris);
+            line-height: 1.75;
+            margin-bottom: 2rem;
+        }
+        .resa-contact-item {
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        .resa-icon {
+            width: 40px; height: 40px;
+            border: 1px solid rgba(184,150,90,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .resa-icon svg { width: 18px; height: 18px; stroke: var(--or); fill: none; stroke-width: 1.5; }
+        .resa-contact-label {
+            font-family: var(--sans);
+            font-size: 0.62rem;
+            font-weight: 200;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gris);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        .resa-contact-val {
+            font-size: 1.05rem;
+            color: var(--blanc);
+        }
+        .resa-form { display: flex; flex-direction: column; gap: 1.2rem; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .form-group label {
+            font-family: var(--sans);
+            font-size: 0.62rem;
+            font-weight: 200;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gris);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(184,150,90,0.25);
+            color: var(--creme);
+            padding: 0.85rem 1rem;
+            font-family: var(--serif);
+            font-size: 1rem;
+            font-weight: 300;
+            transition: border-color 0.3s;
+            outline: none;
+            width: 100%;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus { border-color: var(--or); }
+        .form-group select option { background: var(--noir-doux); color: var(--creme); }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-submit {
+            font-family: var(--sans);
+            font-size: 0.72rem;
+            font-weight: 300;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--noir);
+            background: var(--or);
+            border: none;
+            padding: 1.1rem 2.5rem;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            align-self: flex-start;
+        }
+        .form-submit:hover { background: var(--or-clair); transform: translateY(-2px); }
+
+        @media (max-width: 900px) {
+            .galerie-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: repeat(3, 200px);
+            }
+            .galerie-item:first-child { grid-row: span 1; }
+            .resa-grid { grid-template-columns: 1fr; gap: 3rem; }
+        }
+        @media (max-width: 600px) {
+            .menu-tabs { overflow-x: auto; }
+            .galerie-grid { grid-template-columns: 1fr; grid-template-rows: repeat(5, 200px); }
+            .form-row { grid-template-columns: 1fr; }
+        }
     </style>
 {% endblock %}
 
@@ -274,8 +482,8 @@
         </h1>
         <p class="hero-subtitle">Une cuisine sincère, des saveurs d'ici et d'ailleurs</p>
         <div class="hero-actions">
-            <a href="{{ path('menu') }}" class="btn-primary">Découvrir la carte</a>
-            <a href="{{ path('reservation') }}" class="btn-outline">Réserver une table</a>
+            <a href="#menu" class="btn-primary">Découvrir la carte</a>
+            <a href="#reservation" class="btn-outline">Réserver une table</a>
         </div>
         <div class="hero-scroll">
             <span>Descendre</span>
@@ -337,6 +545,283 @@
         </div>
     </div>
 
+    {# ── LA CARTE ── #}
+    <section id="menu">
+        <div class="container">
+            <p class="section-label reveal">La carte</p>
+            <h2 class="section-title reveal">Nos <em>suggestions</em></h2>
+            <div class="ornement reveal"><div class="ornement-line"></div><div class="ornement-diamond"></div><div class="ornement-line right"></div></div>
+            <p class="section-intro reveal">Une cuisine du marché, renouvelée selon les saisons et l'humeur du chef.</p>
+
+            <div class="menu-tabs reveal">
+                <button class="menu-tab active" data-tab="entrees">Entrées</button>
+                <button class="menu-tab" data-tab="plats">Plats</button>
+                <button class="menu-tab" data-tab="desserts">Desserts</button>
+                <button class="menu-tab" data-tab="formules">Formules</button>
+            </div>
+
+            <div class="menu-panel active" id="tab-entrees">
+                <div class="menu-grid">
+                    <div class="menu-item reveal">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Terrine de foie de volaille</span>
+                            <span class="menu-item-price">9,50 €</span>
+                        </div>
+                        <p class="menu-item-desc">Chutney de figues maison, pain grillé au levain</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.1s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Velouté de butternut</span>
+                            <span class="menu-item-price">8,00 €</span>
+                        </div>
+                        <p class="menu-item-desc">Crème fraîche, graines de courge torréfiées, huile de noisette</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.2s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Salade du 44</span>
+                            <span class="menu-item-price">10,50 €</span>
+                        </div>
+                        <p class="menu-item-desc">Lardons fumés, croûtons, œuf poché, vinaigrette moutarde ancienne</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.3s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Croquettes de maroilles</span>
+                            <span class="menu-item-price">11,00 €</span>
+                        </div>
+                        <p class="menu-item-desc">Salade mesclun, confiture d'oignons au vin rouge</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-panel" id="tab-plats">
+                <div class="menu-grid">
+                    <div class="menu-item reveal">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Carbonnade flamande</span>
+                            <span class="menu-item-price">18,50 €</span>
+                        </div>
+                        <p class="menu-item-desc">Mijotée à la bière Leffe brune, frites maison, salade</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.1s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Filet de cabillaud</span>
+                            <span class="menu-item-price">19,00 €</span>
+                        </div>
+                        <p class="menu-item-desc">Écrasé de pommes de terre à la ciboulette, vierge d'agrumes</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.2s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Entrecôte charolaise</span>
+                            <span class="menu-item-price">24,00 €</span>
+                        </div>
+                        <p class="menu-item-desc">250g, sauce au poivre ou beurre maître d'hôtel, frites ou gratin</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.3s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Poulet rôti aux herbes</span>
+                            <span class="menu-item-price">16,50 €</span>
+                        </div>
+                        <p class="menu-item-desc">Légumes de saison rôtis, jus corsé, pommes sarladaises</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-panel" id="tab-desserts">
+                <div class="menu-grid">
+                    <div class="menu-item reveal">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Tarte Tatin maison</span>
+                            <span class="menu-item-price">7,50 €</span>
+                        </div>
+                        <p class="menu-item-desc">Crème fraîche épaisse, caramel beurre salé</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.1s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Fondant au chocolat</span>
+                            <span class="menu-item-price">7,00 €</span>
+                        </div>
+                        <p class="menu-item-desc">Cœur coulant, glace vanille Bourbon, tuile croustillante</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.2s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Assiette de fromages</span>
+                            <span class="menu-item-price">8,50 €</span>
+                        </div>
+                        <p class="menu-item-desc">Sélection de fromages du Nord, pain aux noix, raisins frais</p>
+                    </div>
+                    <div class="menu-item reveal" style="transition-delay:0.3s">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Crème brûlée</span>
+                            <span class="menu-item-price">6,50 €</span>
+                        </div>
+                        <p class="menu-item-desc">À la vanille de Madagascar, caramel craquant</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-panel" id="tab-formules">
+                <div class="menu-grid">
+                    <div class="menu-item reveal" style="border-top-color:var(--or); padding-top:1.5rem">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name" style="font-size:1.4rem">Formule Midi</span>
+                            <span class="menu-item-price" style="font-size:1.1rem">14,90 €</span>
+                        </div>
+                        <p class="menu-item-desc">Plat du jour + boisson (eau ou café) · Du lundi au vendredi</p>
+                    </div>
+                    <div class="menu-item reveal" style="border-top-color:var(--or); transition-delay:0.1s; padding-top:1.5rem">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name" style="font-size:1.4rem">Formule Entrée-Plat ou Plat-Dessert</span>
+                            <span class="menu-item-price" style="font-size:1.1rem">19,90 €</span>
+                        </div>
+                        <p class="menu-item-desc">Au choix dans notre sélection du jour</p>
+                    </div>
+                    <div class="menu-item reveal" style="border-top-color:var(--or); transition-delay:0.2s; padding-top:1.5rem">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name" style="font-size:1.4rem">Menu Complet</span>
+                            <span class="menu-item-price" style="font-size:1.1rem">24,90 €</span>
+                        </div>
+                        <p class="menu-item-desc">Entrée + Plat + Dessert · Midi et soir</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="menu-note reveal">Carte disponible en version complète sur demande · Allergènes disponibles auprès du service</p>
+        </div>
+    </section>
+
+    {# ── GALERIE ── #}
+    <section id="galerie">
+        <div class="container">
+            <p class="section-label reveal">Galerie</p>
+            <h2 class="section-title reveal">L'<em>atmosphère</em> du 44</h2>
+            <div class="ornement reveal"><div class="ornement-line"></div><div class="ornement-diamond"></div><div class="ornement-line right"></div></div>
+
+            <div class="galerie-grid reveal">
+                <div class="galerie-item">
+                    <img src="{{ asset('images/galerie-1.jpg') }}" alt="Salle du restaurant" loading="lazy">
+                    <div class="galerie-overlay"></div>
+                </div>
+                <div class="galerie-item">
+                    <img src="{{ asset('images/galerie-2.jpg') }}" alt="Plat signature" loading="lazy">
+                    <div class="galerie-overlay"></div>
+                </div>
+                <div class="galerie-item">
+                    <img src="{{ asset('images/galerie-3.jpg') }}" alt="Carte des vins" loading="lazy">
+                    <div class="galerie-overlay"></div>
+                </div>
+                <div class="galerie-item">
+                    <img src="{{ asset('images/galerie-4.jpg') }}" alt="Terrasse" loading="lazy">
+                    <div class="galerie-overlay"></div>
+                </div>
+                <div class="galerie-item">
+                    <img src="{{ asset('images/galerie-5.jpg') }}" alt="Cuisine ouverte" loading="lazy">
+                    <div class="galerie-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# ── RÉSERVATION ── #}
+    <section id="reservation">
+        <div class="container">
+            <p class="section-label reveal">Réservation</p>
+            <h2 class="section-title reveal">Réservez votre <em>table</em></h2>
+            <div class="ornement reveal"><div class="ornement-line"></div><div class="ornement-diamond"></div><div class="ornement-line right"></div></div>
+
+            <div class="resa-grid">
+                <div class="resa-info reveal">
+                    <p>Nous vous accueillons avec plaisir pour déjeuner ou dîner. Pour les grandes tablées ou les événements privés, n'hésitez pas à nous contacter directement.</p>
+                    <div class="resa-contact-item">
+                        <div class="resa-icon">
+                            <svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        </div>
+                        <div>
+                            <span class="resa-contact-label">Téléphone</span>
+                            <span class="resa-contact-val"><a href="tel:+33XXXXXXXXX" style="color:inherit;text-decoration:none">03 XX XX XX XX</a></span>
+                        </div>
+                    </div>
+                    <div class="resa-contact-item">
+                        <div class="resa-icon">
+                            <svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </div>
+                        <div>
+                            <span class="resa-contact-label">Adresse</span>
+                            <span class="resa-contact-val">44 rue [Principale], 59113 Seclin</span>
+                        </div>
+                    </div>
+                    <div class="resa-contact-item">
+                        <div class="resa-icon">
+                            <svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <div>
+                            <span class="resa-contact-label">Email</span>
+                            <span class="resa-contact-val"><a href="mailto:contact@le44deseclin.fr" style="color:inherit;text-decoration:none">contact@le44deseclin.fr</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="resa-form reveal" style="transition-delay:0.2s" action="{{ path('app_reservation_submit') }}" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token('reservation') }}">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prenom">Prénom</label>
+                            <input type="text" id="prenom" name="prenom" required placeholder="Jean">
+                        </div>
+                        <div class="form-group">
+                            <label for="nom">Nom</label>
+                            <input type="text" id="nom" name="nom" required placeholder="Dupont">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="jean@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone">Téléphone</label>
+                            <input type="tel" id="telephone" name="telephone" placeholder="06 XX XX XX XX">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="heure">Heure</label>
+                            <select id="heure" name="heure">
+                                <option value="">Choisir...</option>
+                                <optgroup label="Déjeuner">
+                                    <option>12h00</option><option>12h30</option>
+                                    <option>13h00</option><option>13h30</option>
+                                </optgroup>
+                                <optgroup label="Dîner">
+                                    <option>19h00</option><option>19h30</option>
+                                    <option>20h00</option><option>20h30</option>
+                                    <option>21h00</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="couverts">Nombre de couverts</label>
+                        <select id="couverts" name="couverts">
+                            {% for i in 1..10 %}
+                                <option value="{{ i }}">{{ i }} personne{% if i > 1 %}s{% endif %}</option>
+                            {% endfor %}
+                            <option value="11+">Plus de 10 (groupe)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message (optionnel)</label>
+                        <textarea id="message" name="message" placeholder="Allergie, occasion spéciale, demande particulière…"></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Envoyer ma réservation</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
     {# ── HORAIRES ── #}
     <div id="horaires">
         <div class="container">
@@ -374,3 +859,25 @@
     </div>
 
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+        // Tabs menu
+        document.querySelectorAll('.menu-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Date min = aujourd'hui
+        const dateInput = document.getElementById('date');
+        if (dateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('min', today);
+        }
+    </script>
+{% endblock %}
+

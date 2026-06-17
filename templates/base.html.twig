@@ -320,7 +320,100 @@
             font-family: var(--serif);
         }
 
+        /* ── MODAL CONNEXION ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-card {
+            background: var(--noir-doux);
+            border: 1px solid var(--or);
+            width: 100%;
+            max-width: 400px;
+            padding: 3rem;
+            position: relative;
+            animation: modalFadeIn 0.4s ease;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            background: none;
+            border: none;
+            color: var(--gris);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .modal-close:hover { color: var(--or); }
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--or);
+        }
+        .login-form { display: flex; flex-direction: column; gap: 1.5rem; }
+        .login-form .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .login-form label {
+            font-family: var(--sans);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gris);
+        }
+        .login-form input {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(184,150,90,0.2);
+            color: var(--creme);
+            padding: 0.8rem 1rem;
+            font-family: var(--serif);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .login-form input:focus { border-color: var(--or); }
+        .login-submit {
+            background: var(--or);
+            color: var(--noir);
+            border: none;
+            padding: 1rem;
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 0.5rem;
+        }
+        .login-submit:hover { background: var(--or-clair); }
+        .modal-footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--gris);
+        }
+        .modal-footer a {
+            color: var(--or);
+            text-decoration: none;
+            font-style: italic;
+            margin-left: 0.5rem;
+            transition: color 0.3s;
+        }
+        .modal-footer a:hover { color: var(--or-clair); text-decoration: underline; }
+
         /* ── RESPONSIVE ── */
+
         @media (max-width: 900px) {
             nav { padding: 1.2rem 2rem; }
             nav.scrolled { padding: 0.8rem 2rem; }
@@ -339,11 +432,14 @@
 
 {# ── NAVIGATION ── #}
 <nav id="navbar">
-    <a href="{{ path('homepage') }}#hero" class="nav-logo">Le <span>44</span> de Seclin</a>
+    <a href="{{ path('app_home') }}" class="nav-logo">Le <span>44</span> de Seclin</a>
     <ul class="nav-links">
-        <li><a href="{{ path('homepage') }}#about">Notre histoire</a></li>
-        </ul>
-    <a href="{{ path('app_reservation') }}" class="nav-cta">Réserver</a>
+        <li><a href="#about">Notre histoire</a></li>
+        <li><a href="#menu">La Carte</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#horaires">Horaires</a></li>
+    </ul>
+    <button class="nav-cta" id="loginBtn">Se connecter</button>
     <button class="burger" id="burger" aria-label="Menu">
         <span></span><span></span><span></span>
     </button>
@@ -352,26 +448,68 @@
 {# ── MENU MOBILE ── #}
 <div class="mobile-nav" id="mobileNav">
     <button class="mobile-close" id="mobileClose">×</button>
-    <a href="{{ path('homepage') }}#about" class="mob-link">Notre histoire</a>
-   </div>
+    <a href="#about" class="mob-link">Notre histoire</a>
+    <a href="#menu" class="mob-link">La Carte</a>
+    <a href="#galerie" class="mob-link">Galerie</a>
+    <a href="#horaires" class="mob-link">Horaires</a>
+    <a href="#" class="mob-link" id="mobileLoginBtn">Se connecter</a>
+</div>
+
+{# ── MODAL CONNEXION ── #}
+<div class="modal-overlay" id="loginModal">
+    <div class="modal-card">
+        <button class="modal-close" id="closeModal">×</button>
+        <h2 class="modal-title">Connexion</h2>
+        <form class="login-form">
+            <div class="form-group">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" name="email" required placeholder="votre@email.com">
+            </div>
+            <div class="form-group">
+                <label for="login-password">Mot de passe</label>
+                <input type="password" id="login-password" name="password" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="login-submit">Se connecter</button>
+        </form>
+        <div class="modal-footer">
+            Pas encore de compte ? <a href="{{ path('app_register') }}">S'inscrire</a>
+        </div>
+    </div>
+</div>
 
 {# ── CONTENU PRINCIPAL ── #}
-{% block body %}
-
-    {% include 'home.html.twig' %}
-    {% include 'menu.html.twig' %}
-    {% include 'galerie.html.twig'%}
-
-
-
-
-
-{% endblock %}
+{% block body %}{% endblock %}
 
 {# ── FOOTER ── #}
 {% include 'footer.html.twig' %}
 
 <script>
+    // Login Modal Logic
+    const loginBtn = document.getElementById('loginBtn');
+    const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+    const loginModal = document.getElementById('loginModal');
+    const closeModal = document.getElementById('closeModal');
+
+    const openModal = (e) => {
+        if (e) e.preventDefault();
+        loginModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scroll
+    };
+
+    const hideModal = () => {
+        loginModal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scroll
+    };
+
+    if (loginBtn) loginBtn.addEventListener('click', openModal);
+    if (mobileLoginBtn) mobileLoginBtn.addEventListener('click', openModal);
+    if (closeModal) closeModal.addEventListener('click', hideModal);
+
+    // Close on click outside
+    loginModal.addEventListener('click', (e) => {
+        if (e.target === loginModal) hideModal();
+    });
+
     // Nav scroll
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {

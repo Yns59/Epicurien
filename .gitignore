@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -18,3 +17,14 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+### --- CUSTOM SECURITY & IDE ---
+.env
+.env.dev
+.env.test
+/public/uploads/
+/.idea/
+/.vscode/
+*.swp
+.DS_Store
+Thumbs.db

@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ReservationController extends AbstractController
 {
-    #[Route('/reservation', name: 'app_reservation', methods: ['POST'])]
+    #[Route('/reservation', name: 'app_reservation_submit', methods: ['POST'])]
     public function index(Request $request): Response
     {
         $prenom   = $request->request->get('prenom');
