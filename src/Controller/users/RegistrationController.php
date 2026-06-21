@@ -19,12 +19,24 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $passwordHasher,
         UserRepository $userRepository
     ): Response {
+
+
         $user = new User();
+
         $form = $this->createForm(RegistrationType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $existinguser= $userRepository->findBy(['mail' => $user->getmail(),
+                'number_phone'=>$user->getNumberPhone()]);
+            if($existinguser){
+                $this->addFlash('error', 'Cet email ou le numero et deja associer.');
+                return $this->redirectToRoute('app_register');
+                    }
+            $user->setRoles(['ROLE_USER']);
+
             // Hachage du mot de passe
             $plainPassword = $user->getPassword();
             $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
@@ -35,7 +47,7 @@ class RegistrationController extends AbstractController
 
             $this->addFlash('success', 'Votre compte a bien été créé !');
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_register');
         }
 
         return $this->render('register.html.twig', [

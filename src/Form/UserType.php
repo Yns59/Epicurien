@@ -2,20 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\User;
-use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TelType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class RegistrationType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -48,46 +43,21 @@ class RegistrationType extends AbstractType
                     )
                 ]
             ])
-            ->add('mail', EmailType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Email(message: 'L\'adresse email n\'est pas valide'),
-                ]
-            ])
-            ->add('number_phone', TelType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-                'required' => true,
-                'constraints'=> [
-                new Assert\NotBlank(),
-                new Assert\Regex(
-                    pattern: '/^(0|\+33)[1-9][0-9]{8}$/',
-                    message: 'Numéro de téléphone invalide.'
-                )]
-            ])
-            ->add('password', RepeatedType::class, [
-                'type'=> PasswordType::class,
-                "invalid_message" => 'les mots de passe doivent être identique',
-                'first_options' => ['label' => 'mots de passe ',],
-                'second_options' => [ 'label' => 'confirmer le mot de passe'
-                ]
-            ])
-            ->add('submit', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary'
-                ]
-            ])
-        ;
+        ->add('password', RepeatedType::class, [
+        'type'=> PasswordType::class,
+            'mapped' => false,
+        'required'=> true,
+        "invalid_message" => 'les mots de passe doivent être identique',
+        'first_options' => ['label' => 'mots de passe ',],
+        'second_options' => [ 'label' => 'confirmer le mot de passe'
+        ]
+    ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            // Configure your form options here
         ]);
     }
 }

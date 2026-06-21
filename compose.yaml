@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=vendor/symfony/dependency-injection/Loader/schema/services.schema.json
 # Configuration Docker Compose pour le projet "le44"
 services:
 
@@ -36,11 +37,14 @@ services:
     depends_on:
       - database
     environment:
-      APP_ENV: dev
       ADMINER_DESIGN: pepa-linha
       ADMINER_DEFAULT_SERVER: database
+      ADMINER_DEFAULT_USER: le_44
+      ADMINER_DEFAULT_PASSWORD: le_44
+      ADMINER_DEFAULT_DB: le_44
       ADMINER_PLUGINS: tables-filter frames dump-json edit-calendar tinymce
-
+    volumes:
+        - ./docker/adminer/login-servers.php:/var/www/html/plugins-enabled/login-servers.php
     ports:
       - "8888:8080"
 

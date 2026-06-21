@@ -346,7 +346,7 @@
             overflow: hidden;
             position: relative;
         }
-        .galerie-item:first-child { grid-row: span 2; }
+
         .galerie-item img {
             width: 100%;
             height: 100%;
@@ -354,13 +354,22 @@
             transition: transform 0.6s ease;
             display: block;
         }
-        .galerie-item:hover img { transform: scale(1.06); }
         .galerie-overlay {
             position: absolute;
             inset: 0;
             background: linear-gradient(to top, rgba(14,13,11,0.6), transparent);
             opacity: 0;
             transition: opacity 0.4s;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+
+        .galerie-overlay p {
+            color: white;
+            font-size: 0.95rem;
+            font-style: italic;
+            margin: 0;
         }
         .galerie-item:hover .galerie-overlay { opacity: 1; }
 
@@ -690,6 +699,7 @@
     </section>
 
     {# ── GALERIE ── #}
+
     <section id="galerie">
         <div class="container">
             <p class="section-label reveal">Galerie</p>
@@ -697,29 +707,18 @@
             <div class="ornement reveal"><div class="ornement-line"></div><div class="ornement-diamond"></div><div class="ornement-line right"></div></div>
 
             <div class="galerie-grid reveal">
-                <div class="galerie-item">
-                    <img src="{{ asset('images/galerie-1.jpg') }}" alt="Salle du restaurant" loading="lazy">
-                    <div class="galerie-overlay"></div>
-                </div>
-                <div class="galerie-item">
-                    <img src="{{ asset('images/galerie-2.jpg') }}" alt="Plat signature" loading="lazy">
-                    <div class="galerie-overlay"></div>
-                </div>
-                <div class="galerie-item">
-                    <img src="{{ asset('images/galerie-3.jpg') }}" alt="Carte des vins" loading="lazy">
-                    <div class="galerie-overlay"></div>
-                </div>
-                <div class="galerie-item">
-                    <img src="{{ asset('images/galerie-4.jpg') }}" alt="Terrasse" loading="lazy">
-                    <div class="galerie-overlay"></div>
-                </div>
-                <div class="galerie-item">
-                    <img src="{{ asset('images/galerie-5.jpg') }}" alt="Cuisine ouverte" loading="lazy">
-                    <div class="galerie-overlay"></div>
-                </div>
+                {% for product in products %}
+                    <div class="galerie-item">
+                        <img src="{{ asset('uploads/images/' ~ product.image) }}" alt="{{ product.name }}" loading="lazy">
+                        <div class="galerie-overlay">
+                            <p>{{ product.content|raw  }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </section>
+
 
     {# ── RÉSERVATION ── #}
     <section id="reservation">

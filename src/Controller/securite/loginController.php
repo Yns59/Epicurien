@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Controller\securite;
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Twig\Environment;
+
+#[AsController]
+#[Route('/login', name: 'app_login', methods: ['GET', 'POST'])]
+class loginController
+{
+    public function __invoke(AuthenticationUtils $authenticationUtils, Environment $twig): Response
+    {
+        return new Response(
+            $twig->render('security/login.html.twig', [
+                'last_username' => $authenticationUtils->getLastUsername(),
+                'error' => $authenticationUtils->getLastAuthenticationError(),
+            ]),
+            Response::HTTP_OK
+        );
+    }
+}

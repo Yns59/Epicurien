@@ -97,8 +97,175 @@
             padding: 0.65rem 1.6rem;
             text-decoration: none;
             transition: background 0.3s, color 0.3s;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
         }
         .nav-cta:hover { background: var(--or-clair); }
+
+        .nav-user {
+            position: relative;
+        }
+        .nav-user-trigger {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: transparent;
+            border: 1px solid rgba(184,150,90,0.3);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .nav-user-trigger:hover,
+        .nav-user.open .nav-user-trigger {
+            border-color: var(--or);
+            background: rgba(184,150,90,0.08);
+        }
+        .nav-user-name {
+            font-family: var(--sans);
+            font-size: 0.72rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--or-clair);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-user-name::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--or);
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .nav-user-chevron {
+            width: 9px; height: 9px;
+            stroke: var(--gris);
+            fill: none;
+            stroke-width: 2;
+            transition: transform 0.3s;
+        }
+        .nav-user.open .nav-user-chevron { transform: rotate(180deg); }
+
+        .nav-user-panel {
+            position: absolute;
+            top: calc(100% + 0.8rem);
+            right: 0;
+            width: 260px;
+            background: var(--noir-doux);
+            border: 1px solid rgba(184,150,90,0.25);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+            z-index: 50;
+        }
+        .nav-user.open .nav-user-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .nav-user-panel::before {
+            content: '';
+            position: absolute;
+            top: -1px; right: 1.4rem;
+            width: 80px; height: 1px;
+            background: var(--or);
+        }
+        .nav-user-panel-header {
+            padding: 1.4rem 1.4rem 1.1rem;
+            border-bottom: 1px solid rgba(184,150,90,0.15);
+        }
+        .nav-user-panel-name {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--blanc);
+            margin-bottom: 0.3rem;
+        }
+        .nav-user-panel-mail {
+            font-family: var(--sans);
+            font-size: 0.78rem;
+            font-weight: 300;
+            color: var(--gris);
+            word-break: break-all;
+        }
+        .nav-user-panel-body {
+            padding: 1rem 1.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+        .nav-user-panel-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1rem;
+        }
+        .nav-user-panel-label {
+            font-family: var(--sans);
+            font-size: 0.6rem;
+            font-weight: 200;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gris);
+            opacity: 0.8;
+        }
+        .nav-user-panel-value {
+            font-family: var(--serif);
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--creme);
+            text-align: right;
+        }
+        .nav-user-panel-footer {
+            border-top: 1px solid rgba(184,150,90,0.15);
+            padding: 0.9rem 1.4rem;
+        }
+        .nav-user-edit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            font-family: var(--sans);
+            font-size: 0.68rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--or-clair);
+            text-decoration: none;
+            padding: 0.6rem;
+            margin-bottom: 0.4rem;
+            transition: color 0.3s;
+        }
+        .nav-user-edit:hover { color: var(--or); }
+        .nav-user-logout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            font-family: var(--sans);
+            font-size: 0.68rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gris);
+            text-decoration: none;
+            padding: 0.6rem;
+            transition: color 0.3s;
+        }
+        .nav-user-logout:hover { color: #e8a39c; }
+        .nav-user-edit svg,
+        .nav-user-logout svg {
+            width: 13px; height: 13px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
 
         .burger {
             display: none;
@@ -309,6 +476,13 @@
             transition: color 0.3s;
         }
         .mobile-nav a:hover { color: var(--or); }
+        .mobile-nav .mob-user-name {
+            font-size: 1.1rem;
+            font-family: var(--sans);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--or-clair);
+        }
         .mobile-close {
             position: absolute;
             top: 1.5rem; right: 2rem;
@@ -320,104 +494,12 @@
             font-family: var(--serif);
         }
 
-        /* ── MODAL CONNEXION ── */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-        }
-        .modal-overlay.active { display: flex; }
-        .modal-card {
-            background: var(--noir-doux);
-            border: 1px solid var(--or);
-            width: 100%;
-            max-width: 400px;
-            padding: 3rem;
-            position: relative;
-            animation: modalFadeIn 0.4s ease;
-        }
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .modal-close {
-            position: absolute;
-            top: 1rem; right: 1rem;
-            background: none;
-            border: none;
-            color: var(--gris);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .modal-close:hover { color: var(--or); }
-        .modal-title {
-            font-size: 2rem;
-            font-weight: 300;
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--or);
-        }
-        .login-form { display: flex; flex-direction: column; gap: 1.5rem; }
-        .login-form .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
-        .login-form label {
-            font-family: var(--sans);
-            font-size: 0.65rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--gris);
-        }
-        .login-form input {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(184,150,90,0.2);
-            color: var(--creme);
-            padding: 0.8rem 1rem;
-            font-family: var(--serif);
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        .login-form input:focus { border-color: var(--or); }
-        .login-submit {
-            background: var(--or);
-            color: var(--noir);
-            border: none;
-            padding: 1rem;
-            font-family: var(--sans);
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 0.5rem;
-        }
-        .login-submit:hover { background: var(--or-clair); }
-        .modal-footer {
-            margin-top: 2rem;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--gris);
-        }
-        .modal-footer a {
-            color: var(--or);
-            text-decoration: none;
-            font-style: italic;
-            margin-left: 0.5rem;
-            transition: color 0.3s;
-        }
-        .modal-footer a:hover { color: var(--or-clair); text-decoration: underline; }
-
         /* ── RESPONSIVE ── */
 
         @media (max-width: 900px) {
             nav { padding: 1.2rem 2rem; }
             nav.scrolled { padding: 0.8rem 2rem; }
-            .nav-links, .nav-cta { display: none; }
+            .nav-links, .nav-cta, .nav-user { display: none; }
             .burger { display: flex; }
             .footer-grid { grid-template-columns: 1fr; }
         }
@@ -439,7 +521,40 @@
         <li><a href="#galerie">Galerie</a></li>
         <li><a href="#horaires">Horaires</a></li>
     </ul>
-    <button class="nav-cta" id="loginBtn">Se connecter</button>
+
+    {% if is_granted('ROLE_USER') %}
+        <div class="nav-user" id="navUser">
+            <button class="nav-user-trigger" id="navUserTrigger" aria-expanded="false">
+                <span class="nav-user-name">{{ app.user.name }}</span>
+                <svg class="nav-user-chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg>
+            </button>
+            <div class="nav-user-panel" id="navUserPanel">
+                <div class="nav-user-panel-header">
+                    <div class="nav-user-panel-name">{{ app.user.name }} {{ app.user.lastname }}</div>
+                    <div class="nav-user-panel-mail">{{ app.user.mail }}</div>
+                </div>
+                <div class="nav-user-panel-body">
+                    <div class="nav-user-panel-row">
+                        <span class="nav-user-panel-label">Téléphone</span>
+                        <span class="nav-user-panel-value">{{ app.user.numberPhone }}</span>
+                    </div>
+                </div>
+                <div class="nav-user-panel-footer">
+                    <a href="{{ path('app_edit') }}" class="nav-user-edit">
+                        <svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        Modifier mon profil
+                    </a>
+                    <a href="{{ path('app_logout') }}" class="nav-user-logout">
+                        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+                        Déconnexion
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <a href="{{ path('app_login') }}" class="nav-cta">Se connecter</a>
+    {% endif %}
+
     <button class="burger" id="burger" aria-label="Menu">
         <span></span><span></span><span></span>
     </button>
@@ -452,29 +567,13 @@
     <a href="#menu" class="mob-link">La Carte</a>
     <a href="#galerie" class="mob-link">Galerie</a>
     <a href="#horaires" class="mob-link">Horaires</a>
-    <a href="#" class="mob-link" id="mobileLoginBtn">Se connecter</a>
-</div>
 
-{# ── MODAL CONNEXION ── #}
-<div class="modal-overlay" id="loginModal">
-    <div class="modal-card">
-        <button class="modal-close" id="closeModal">×</button>
-        <h2 class="modal-title">Connexion</h2>
-        <form class="login-form">
-            <div class="form-group">
-                <label for="login-email">Email</label>
-                <input type="email" id="login-email" name="email" required placeholder="votre@email.com">
-            </div>
-            <div class="form-group">
-                <label for="login-password">Mot de passe</label>
-                <input type="password" id="login-password" name="password" required placeholder="••••••••">
-            </div>
-            <button type="submit" class="login-submit">Se connecter</button>
-        </form>
-        <div class="modal-footer">
-            Pas encore de compte ? <a href="{{ path('app_register') }}">S'inscrire</a>
-        </div>
-    </div>
+    {% if is_granted('ROLE_USER') %}
+        <span class="mob-user-name">{{ app.user.name }}</span>
+        <a href="{{ path('app_logout') }}" class="mob-link">Déconnexion</a>
+    {% else %}
+        <a href="{{ path('app_login') }}" class="mob-link">Se connecter</a>
+    {% endif %}
 </div>
 
 {# ── CONTENU PRINCIPAL ── #}
@@ -484,32 +583,6 @@
 {% include 'footer.html.twig' %}
 
 <script>
-    // Login Modal Logic
-    const loginBtn = document.getElementById('loginBtn');
-    const mobileLoginBtn = document.getElementById('mobileLoginBtn');
-    const loginModal = document.getElementById('loginModal');
-    const closeModal = document.getElementById('closeModal');
-
-    const openModal = (e) => {
-        if (e) e.preventDefault();
-        loginModal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scroll
-    };
-
-    const hideModal = () => {
-        loginModal.classList.remove('active');
-        document.body.style.overflow = ''; // Restore scroll
-    };
-
-    if (loginBtn) loginBtn.addEventListener('click', openModal);
-    if (mobileLoginBtn) mobileLoginBtn.addEventListener('click', openModal);
-    if (closeModal) closeModal.addEventListener('click', hideModal);
-
-    // Close on click outside
-    loginModal.addEventListener('click', (e) => {
-        if (e.target === loginModal) hideModal();
-    });
-
     // Nav scroll
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
@@ -525,6 +598,29 @@
     document.querySelectorAll('.mob-link').forEach(l =>
         l.addEventListener('click', () => mobileNav.classList.remove('open'))
     );
+
+    // Dropdown compte utilisateur
+    const navUser = document.getElementById('navUser');
+    if (navUser) {
+        const navUserTrigger = document.getElementById('navUserTrigger');
+        navUserTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = navUser.classList.toggle('open');
+            navUserTrigger.setAttribute('aria-expanded', isOpen);
+        });
+        document.addEventListener('click', (e) => {
+            if (!navUser.contains(e.target)) {
+                navUser.classList.remove('open');
+                navUserTrigger.setAttribute('aria-expanded', 'false');
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                navUser.classList.remove('open');
+                navUserTrigger.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
 
     // Reveal on scroll
     const reveals = document.querySelectorAll('.reveal');

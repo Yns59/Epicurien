@@ -30,7 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     #[ORM\Column]
-    private ?int $number_phone = null;
+    private ?string $number_phone = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $password = null;
@@ -89,7 +89,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -97,11 +97,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): static
     {
-        $roles = array_diff($roles, ['ROLE_USER']);
         $this->roles = $roles;
-
         return $this;
     }
+
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -126,12 +125,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getNumberPhone(): ?int
+    public function getNumberPhone(): ?string
     {
         return $this->number_phone;
     }
 
-    public function setNumberPhone(?int $number_phone): static
+    public function setNumberPhone(?string $number_phone): static
     {
         $this->number_phone = $number_phone;
         return $this;

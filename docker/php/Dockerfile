@@ -1,6 +1,8 @@
 # 1. On définit l'image de base (le système d'exploitation de départ avec PHP déjà installé)
 FROM php:8.4-fpm-alpine
 
+COPY conf.d/custome.ini /usr/local/etc/php/conf.d
+
 # 2. RUN permet d'exécuter des commandes Linux à l'intérieur du conteneur pendant sa construction
 # apk est le gestionnaire de paquets d'Alpine (équivalent de apt sur Debian/Ubuntu)
 # --no-cache permet de ne pas stocker les fichiers d'installation inutiles pour garder l'image légère
