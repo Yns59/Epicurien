@@ -759,67 +759,56 @@
                     </div>
                 </div>
 
-                <form class="resa-form reveal" style="transition-delay:0.2s" action="{{ path('app_reservation_submit') }}" method="post">
-                    <input type="hidden" name="_token" value="{{ csrf_token('reservation') }}">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="prenom">Prénom</label>
-                            <input type="text" id="prenom" name="prenom" required placeholder="Jean">
-                        </div>
-                        <div class="form-group">
-                            <label for="nom">Nom</label>
-                            <input type="text" id="nom" name="nom" required placeholder="Dupont">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required placeholder="jean@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="telephone">Téléphone</label>
-                            <input type="tel" id="telephone" name="telephone" placeholder="06 XX XX XX XX">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="date">Date</label>
-                            <input type="date" id="date" name="date" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="heure">Heure</label>
-                            <select id="heure" name="heure">
-                                <option value="">Choisir...</option>
-                                <optgroup label="Déjeuner">
-                                    <option>12h00</option><option>12h30</option>
-                                    <option>13h00</option><option>13h30</option>
-                                </optgroup>
-                                <optgroup label="Dîner">
-                                    <option>19h00</option><option>19h30</option>
-                                    <option>20h00</option><option>20h30</option>
-                                    <option>21h00</option>
-                                </optgroup>
-                            </select>
-                        </div>
+                {{ form_start(form, {'attr': {'class': 'resa-form reveal', 'style': 'transition-delay:0.2s'}}) }}
+                <div class="form-row">
+                    <div class="form-group">
+                        {{ form_label(form.name) }}
+                        {{ form_widget(form.name, {'attr': {'placeholder': 'Jean'}}) }}
                     </div>
                     <div class="form-group">
-                        <label for="couverts">Nombre de couverts</label>
-                        <select id="couverts" name="couverts">
-                            {% for i in 1..10 %}
-                                <option value="{{ i }}">{{ i }} personne{% if i > 1 %}s{% endif %}</option>
-                            {% endfor %}
-                            <option value="11+">Plus de 10 (groupe)</option>
-                        </select>
+                        {{ form_label(form.lastname) }}
+                        {{ form_widget(form.lastname, {'attr': {'placeholder': 'Dupont'}}) }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email, {'attr': {'placeholder': 'jean@email.com'}}) }}
                     </div>
                     <div class="form-group">
-                        <label for="message">Message (optionnel)</label>
-                        <textarea id="message" name="message" placeholder="Allergie, occasion spéciale, demande particulière…"></textarea>
+                        {{ form_label(form.phone_number) }}
+                        {{ form_widget(form.phone_number, {'attr': {'placeholder': '06 XX XX XX XX'}}) }}
                     </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        {{ form_label(form.date) }}
+                        {{ form_widget(form.date) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.hour) }}
+                        {{ form_widget(form.hour) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.cutlery) }}
+                    {{ form_widget(form.cutlery) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.content) }}
+                    {{ form_widget(form.content) }}
+                </div>
+
+                {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
                     <button type="submit" class="form-submit">Envoyer ma réservation</button>
-                </form>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="form-submit">Connecte-toi pour réserver</a>
+                {% endif %}
+                {{ form_end(form) }}
             </div>
         </div>
     </section>
+
 
     {# ── HORAIRES ── #}
     <div id="horaires">

@@ -2,29 +2,48 @@
 
 namespace App\Controller;
 
+use App\Entity\Reservation;
+use App\Form\ReservationType;
+use App\Repository\ProductRepository;
+use App\Repository\ReservationRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Router;
+
+
 
 class ReservationController extends AbstractController
 {
-    #[Route('/reservation', name: 'app_reservation_submit', methods: ['POST'])]
-    public function index(Request $request): Response
-    {
-        $prenom   = $request->request->get('prenom');
-        $nom      = $request->request->get('nom');
-        $email    = $request->request->get('email');
-        $telephone = $request->request->get('telephone');
-        $date     = $request->request->get('date');
-        $heure    = $request->request->get('heure');
-        $couverts = $request->request->get('couverts');
-        $message  = $request->request->get('message');
+    #[Route("/reservation", name: 'app_reserve',methods: ['POST','GET'])]
+    public function __invoke(ReservationRepository $repository,Request $request,EntityManagerInterface $manager,ProductRepository $productRepository){
+        $reservation= new Reservation();
+        $form=$this->createForm(ReservationType::class,$reservation);
+        $form->handleRequest($request);
 
-        // Ici : envoyer un mail, sauvegarder en BDD, etc.
+        if($form->isSubmitted() && $form->isValid()){
 
-        $this->addFlash('success', 'Votre réservation a bien été envoyée !');
+            $existing=$repository->findOneByUserAndDate($this->getUser(),$reservation->getDate());
+            if ($existing) {
+                $this->addFlash('error', 'Vous avez déjà une réservation pour cette journée.');
+                return $this->redirectToRoute('app_home');
+            }
 
-        return $this->redirectToRoute('app_home');
+            $manager->persist($reservation);
+            $manager->flush();
+            $this->addFlash('succes','la reservation a bien etait prise en compte ');
+            return $this->redirectToRoute('app_home',);
+
+        }
+
+
+        return $this->render('home.html.twig',[
+            'form'=> $form->createView(),
+            'products'=>$productRepository->findAll()
+        ]);
+
+
     }
+
 }
