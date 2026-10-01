@@ -1,25 +1,28 @@
-# le44
-Ce projet consiste en la création d’un site web professionnel pour un restaurant, développé dans le cadre de mon stage de fin d'annee
+# 🍽️ L'épicurien
 
-Le site  offre la possibilité de réserver une prestation, de gérer ses rendez‑vous, de recevoir des notifications et de communiquer avec le restaurant.
+Site web professionnel pour un restaurant, développé dans le cadre de mon stage de fin d'année.
+
+Le site permet de réserver une table en ligne, de gérer ses réservations et de communiquer avec le restaurant.
 
 ## 🏗 Architecture & Stack Technique
 
-Le projet est structuré en monorepo composé de deux parties principales :
+Le projet est une application **Symfony** unique : le backend et le frontend (templates Twig) vivent dans le même dépôt.
 
-### 🖥️ Backend (`/backend`)
-- **Langage** : php
-- **Framework** : symfony
-- **Base de données** : PostgreSQL (Données relationnelles) & MongoDB (Messages/Logs)
+### 🖥️ Backend
+- **Langage** : PHP
+- **Framework** : Symfony
+- **Base de données** : PostgreSQL (données relationnelles) 
 - **ORM** : Doctrine
-- **Sécurité** : JWT & Argon2
+- **Sécurité** :  Argon2
 
-### ⚛️ Frontend (`/frontend`)
-- **Langage** : html,css
+### 🎨 Frontend
+- **Templates** : Twig
+- **Langages** : HTML, CSS, JavaScript
+- **Assets** : AssetMapper (`importmap.php`)
 
 ## 🚀 Démarrage Rapide (Docker)
 
-La méthode la plus simple pour lancer le projet complet (Base de données, Backend, Frontend) est d'utiliser Docker Compose.
+La méthode la plus simple pour lancer le projet complet (base de données, backend, frontend) est d'utiliser Docker Compose.
 
 ### Pré-requis
 - Docker & Docker Compose installés sur votre machine.
@@ -41,106 +44,56 @@ docker compose down -v
 
 ## 🌐 Accès aux Services
 
-Une fois le stack lancé, les services sont accessibles aux adresses suivantes :
+Une fois la stack lancée, les services sont accessibles aux adresses suivantes :
 
-| Service | URL | Description |
-|---------|-----|-------------|
-| **Frontend** | [http://localhost:3000](http://localhost:3000) | Interface utilisateur Web |
-| **PostgreSQL** | `localhost:5432` | Base de données SQL |
-| **MongoDB** | `localhost:27017` | Base de données NoSQL |
-| **pgAdmin** | [http://localhost:5050](http://localhost:5050) | Interface d'administration Postgres |
-| **Mongo Express** | [http://localhost:8081](http://localhost:8081) | Interface d'administration MongoDB |
+| Service        | URL                     | Description               |
+|----------------|-------------------------|---------------------------|
+| **Frontend**   | <http://localhost:8080> | Interface utilisateur Web |
+| **PostgreSQL** | `localhost:5432`        | Base de données SQL       |
 
 ## ✨ Fonctionnalités Clés
 
-- **Authentification** : Création de compte client/patron, connexion sécurisée, gestion du profil et des informations personnelles.
+- **Authentification** : création de compte client / patron, connexion sécurisée, gestion du profil et des informations personnelles.
+- **Réservation** : prise de réservation en ligne (date, heure, nombre de couverts, message), réservée aux utilisateurs connectés.
+- **Carte** : affichage dynamique des plats et de leurs prix, gérés depuis la base de données.
+- **Galerie** : photos de l'établissement, gérées depuis la base de données.
+- **Horaires** : affichage des horaires d'ouverture du restaurant.
 
-- **Rendez-vous** : Prise de rendez‑vous en ligne, choix du type de lavage, sélection des options, gestion des disponibilités en temps réel.
-
-- **Prestations** : Catalogue dynamique des services (lavage extérieur, intérieur, complet, detailing, cire, polissage), affichage des tarifs et durées estimées.
-
-- **Gestion du car wash** : Administration des horaires d’ouverture, fermetures exceptionnelles, gestion des employés et de leurs plannings.
-
-- **Avis & Fidélité** : Système d’avis clients, notes, programme de fidélité, points cumulés ou réductions.
-
-- **Communicatio**n : Formulaire de contact ou messagerie simple pour échanger avec le car wash (questions, demandes spéciales, devis).
-
-## 🧠 Architecture 
+## 🧠 Arborescence
 
 ```
-car-wash/
-│
-├── src/
-│   ├── Controller/
-│   │   ├── HomeController.php
-│   │   ├── AppointmentController.php        # prise de RDV client
-│   │   ├── ServiceController.php            # affichage des prestations
-│   │   ├── StaffController.php              # équipe (optionnel côté public)
-│   │   └── Admin/
-│   │       ├── DashboardController.php
-│   │       ├── AppointmentAdminController.php
-│   │       ├── ServiceAdminController.php
-│   │       └── StaffAdminController.php
-│   │
-│   ├── Entity/
-│   │   ├── User.php                         # client + admin
-│   │   ├── Role.php
-│   │   ├── Client.php                       # infos client (véhicule, historique)
-│   │   ├── Staff.php                        # employés du car wash
-│   │   ├── Service.php                      # lavage, detailing, options
-│   │   ├── Appointment.php                  # RDV
-│   │   ├── AppointmentService.php           # services associés à un RDV
-│   │   └── Payment.php                      # paiement (optionnel)
-│   │
-│   ├── Repository/
-│   │   ├── AppointmentRepository.php
-│   │   ├── ServiceRepository.php
-│   │   └── StaffRepository.php
-│   │
-│   ├── Form/
-│   │   ├── AppointmentType.php              # choix du service + créneau
-│   │   ├── ServiceType.php
-│   │   └── StaffType.php
-│   │
-│   └── Security/
-│       └── (auth, login, voters si besoin)
-│
-├── templates/
-│   ├── base.html.twig
-│   ├── home/
-│   │   └── index.html.twig
-│   ├── services/
-│   │   ├── index.html.twig
-│   │   └── show.html.twig
-│   ├── appointments/
-│   │   ├── new.html.twig
-│   │   ├── my_list.html.twig
-│   │   └── show.html.twig
-│   └── admin/
-│       ├── dashboard.html.twig
-│       ├── appointments/
-│       │   ├── index.html.twig
-│       │   └── edit.html.twig
-│       ├── services/
-│       │   ├── index.html.twig
-│       │   └── edit.html.twig
-│       └── staff/
-│           ├── index.html.twig
-│           └── edit.html.twig
-│
-├── config/
-│   ├── routes.yaml
-│   └── packages/
-│       └── security.yaml
-│
-├── public/
-└── assets/
-    ├── css/
-    ├── js/
-    └── images/
-
+L-epicurien/
+├── .idea/                 # Configuration de l'IDE (PhpStorm)
+├── assets/                # Sources front : CSS, JavaScript, images
+├── bin/                   # Exécutables (bin/console)
+├── config/                # Configuration Symfony (routes, sécurité, services, packages)
+├── docker/                # Fichiers Docker (Dockerfile, config serveur web, etc.)
+├── migrations/            # Migrations Doctrine (schéma de la base de données)
+├── public/                # Point d'entrée web (index.php) et fichiers publics
+├── src/                   # Code PHP de l'application
+│   ├── Controller/        # Contrôleurs (pages, réservation, authentification)
+│   ├── Entity/            # Entités Doctrine
+│   ├── Form/              # Formulaires Symfony (ex. formulaire de réservation)
+│   ├── Repository/        # Requêtes Doctrine
+│   └── Security/          # Authentification et autorisations
+├── templates/             # Vues Twig (base.html.twig, accueil, etc.)
+├── tests/                 # Tests PHPUnit
+├── translations/          # Fichiers de traduction
+├── .editorconfig          # Règles de formatage de l'éditeur
+├── .env.dev               # Variables d'environnement (développement)
+├── .env.test              # Variables d'environnement (tests)
+├── .gitignore
+├── compose.yaml           # Orchestration Docker Compose
+├── composer.json          # Dépendances PHP
+├── composer.lock
+├── importmap.php          # Dépendances JavaScript (AssetMapper)
+├── package.json           # Dépendances Node
+├── package-lock.json
+├── phpunit.dist.xml       # Configuration PHPUnit
+├── symfony.lock
+└── README.md
 ```
+
 ## 👥 Auteurs
-Younes
 
-# L-epicurien
+Younes
