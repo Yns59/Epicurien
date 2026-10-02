@@ -22,8 +22,8 @@ class Reservation
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $phone_number = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $phoneNumber = null;
 
     #[ORM\Column(type: 'date_immutable')]
     private ?\DateTimeImmutable $date = null;
@@ -34,8 +34,12 @@ class Reservation
     #[ORM\Column]
     private ?int $cutlery = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $content = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -80,12 +84,12 @@ class Reservation
 
     public function getPhoneNumber(): ?string
     {
-        return $this->phone_number;
+        return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(string $phone_number): static
+    public function setPhoneNumber(?string $phoneNumber): static
     {
-        $this->phone_number = $phone_number;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
@@ -134,6 +138,18 @@ class Reservation
     public function setContent(?string $content): static
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

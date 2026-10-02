@@ -1,7 +1,7 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Le 44 de Seclin — Accueil{% endblock %}
+{% block title %}L'Épicurien— Accueil{% endblock %}
 
 {% block stylesheets %}
     <style>
@@ -484,10 +484,10 @@
 
     {# ── HERO ── #}
     <section id="hero">
-        <p class="hero-eyebrow">Restaurant &amp; Brasserie · Seclin, Nord</p>
+        <p class="hero-eyebrow">Restaurant &amp; Brasserie · lille, Nord</p>
         <h1 class="hero-title">
-            Le 44
-            <em>de Seclin</em>
+            L'Épicurien
+
         </h1>
         <p class="hero-subtitle">Une cuisine sincère, des saveurs d'ici et d'ailleurs</p>
         <div class="hero-actions">
@@ -508,7 +508,7 @@
                     <img src="{{ asset('images/chef.jpg') }}" alt="Notre chef en cuisine" loading="lazy">
                     <div class="about-image-frame"></div>
                     <div class="about-badge">
-                        <span class="about-badge-num">44</span>
+                        <span class="about-badge-num">L'Épicurien</span>
                         <span class="about-badge-txt">Rue principale</span>
                     </div>
                 </div>
@@ -521,10 +521,10 @@
                         <div class="ornement-line"></div>
                         <div class="ornement-diamond"></div>
                     </div>
-                    <p>Niché au cœur de Seclin, le <strong style="font-weight:400; color:var(--or-clair)">44</strong> est bien plus qu'un restaurant. C'est un lieu de vie, de rencontre et de partage où chaque repas devient une expérience à part entière.</p>
+                    <p>Niché au cœur de lille, le <strong style="font-weight:400; color:var(--or-clair)">L'Épicurien</strong> est bien plus qu'un restaurant. C'est un lieu de vie, de rencontre et de partage où chaque repas devient une expérience à part entière.</p>
                     <p>Notre cuisine, généreuse et ancrée dans le terroir du Nord, évolue au rythme des saisons et de l'inspiration du moment. Produits frais, circuits courts, et savoir-faire artisanal sont au cœur de notre philosophie.</p>
                     <p>Que vous veniez en famille, entre amis ou pour une occasion spéciale, nous vous accueillons avec la chaleur et l'authenticité qui font la réputation de notre maison.</p>
-                    <p class="about-signature">L'équipe du 44</p>
+                    <p class="about-signature">L'équipe de L'Épicurien</p>
                 </div>
             </div>
         </div>
@@ -562,140 +562,24 @@
             <div class="ornement reveal"><div class="ornement-line"></div><div class="ornement-diamond"></div><div class="ornement-line right"></div></div>
             <p class="section-intro reveal">Une cuisine du marché, renouvelée selon les saisons et l'humeur du chef.</p>
 
-            <div class="menu-tabs reveal">
-                <button class="menu-tab active" data-tab="entrees">Entrées</button>
-                <button class="menu-tab" data-tab="plats">Plats</button>
-                <button class="menu-tab" data-tab="desserts">Desserts</button>
-                <button class="menu-tab" data-tab="formules">Formules</button>
-            </div>
+
+
 
             <div class="menu-panel active" id="tab-entrees">
                 <div class="menu-grid">
+                    {% for i in menu %}
                     <div class="menu-item reveal">
                         <div class="menu-item-header">
-                            <span class="menu-item-name">Terrine de foie de volaille</span>
-                            <span class="menu-item-price">9,50 €</span>
+                            <span class="menu-item-name">{{ i.name|raw }}</span>
+                            <span class="menu-item-price">{{ i.price }}</span>
                         </div>
-                        <p class="menu-item-desc">Chutney de figues maison, pain grillé au levain</p>
+                        <p class="menu-item-desc">{{i.content|raw}}</p>
                     </div>
-                    <div class="menu-item reveal" style="transition-delay:0.1s">
-                        <div class="menu-item-header">
-                            <span class="menu-item-name">Velouté de butternut</span>
-                            <span class="menu-item-price">8,00 €</span>
-                        </div>
-                        <p class="menu-item-desc">Crème fraîche, graines de courge torréfiées, huile de noisette</p>
-                    </div>
-                    <div class="menu-item reveal" style="transition-delay:0.2s">
-                        <div class="menu-item-header">
-                            <span class="menu-item-name">Salade du 44</span>
-                            <span class="menu-item-price">10,50 €</span>
-                        </div>
-                        <p class="menu-item-desc">Lardons fumés, croûtons, œuf poché, vinaigrette moutarde ancienne</p>
-                    </div>
-                    <div class="menu-item reveal" style="transition-delay:0.3s">
-                        <div class="menu-item-header">
-                            <span class="menu-item-name">Croquettes de maroilles</span>
-                            <span class="menu-item-price">11,00 €</span>
-                        </div>
-                        <p class="menu-item-desc">Salade mesclun, confiture d'oignons au vin rouge</p>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
-
-            <div class="menu-panel" id="tab-plats">
-                <div class="menu-grid">
-                    <div class="menu-item reveal">
-                        <div class="menu-item-header">
-                            <span class="menu-item-name">Carbonnade flamande</span>
-                            <span class="menu-item-price">18,50 €</span>
-                        </div>
-                        <p class="menu-item-desc">Mijotée à la bière Leffe brune, frites maison, salade</p>
-                    </div>
-                    <div class="menu-item reveal" style="transition-delay:0.1s">
-                        <div class="menu-item-header">
-                            <span class="menu-item-name">Filet de cabillaud</span>
-                            <span class="menu-item-price">19,00 €</span>
-                        </div>
-                        <p class="menu-item-desc">Écrasé de pommes de terre à la ciboulette, vierge d'agrumes</p>
-                    </div>
-                    <div class="menu-item reveal" style="transition-delay:0.2s">
-                        <div class="menu-item-header">
-                            <span class="menu-item-name">Entrecôte charolaise</span>
-                            <span class="menu-item-price">24,00 €</span>
-                        </div>
-                        <p class="menu-item-desc">250g, sauce au poivre ou beurre maître d'hôtel, frites ou gratin</p>
-                    </div>
-                    <div class="menu-item reveal" style="transition-delay:0.3s">
-                        <div class="menu-item-header">
-                            <span class="menu-item-name">Poulet rôti aux herbes</span>
-                            <span class="menu-item-price">16,50 €</span>
-                        </div>
-                        <p class="menu-item-desc">Légumes de saison rôtis, jus corsé, pommes sarladaises</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="menu-panel" id="tab-desserts">
-                <div class="menu-grid">
-                    <div class="menu-item reveal">
-                        <div class="menu-item-header">
-                            <span class="menu-item-name">Tarte Tatin maison</span>
-                            <span class="menu-item-price">7,50 €</span>
-                        </div>
-                        <p class="menu-item-desc">Crème fraîche épaisse, caramel beurre salé</p>
-                    </div>
-                    <div class="menu-item reveal" style="transition-delay:0.1s">
-                        <div class="menu-item-header">
-                            <span class="menu-item-name">Fondant au chocolat</span>
-                            <span class="menu-item-price">7,00 €</span>
-                        </div>
-                        <p class="menu-item-desc">Cœur coulant, glace vanille Bourbon, tuile croustillante</p>
-                    </div>
-                    <div class="menu-item reveal" style="transition-delay:0.2s">
-                        <div class="menu-item-header">
-                            <span class="menu-item-name">Assiette de fromages</span>
-                            <span class="menu-item-price">8,50 €</span>
-                        </div>
-                        <p class="menu-item-desc">Sélection de fromages du Nord, pain aux noix, raisins frais</p>
-                    </div>
-                    <div class="menu-item reveal" style="transition-delay:0.3s">
-                        <div class="menu-item-header">
-                            <span class="menu-item-name">Crème brûlée</span>
-                            <span class="menu-item-price">6,50 €</span>
-                        </div>
-                        <p class="menu-item-desc">À la vanille de Madagascar, caramel craquant</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="menu-panel" id="tab-formules">
-                <div class="menu-grid">
-                    <div class="menu-item reveal" style="border-top-color:var(--or); padding-top:1.5rem">
-                        <div class="menu-item-header">
-                            <span class="menu-item-name" style="font-size:1.4rem">Formule Midi</span>
-                            <span class="menu-item-price" style="font-size:1.1rem">14,90 €</span>
-                        </div>
-                        <p class="menu-item-desc">Plat du jour + boisson (eau ou café) · Du lundi au vendredi</p>
-                    </div>
-                    <div class="menu-item reveal" style="border-top-color:var(--or); transition-delay:0.1s; padding-top:1.5rem">
-                        <div class="menu-item-header">
-                            <span class="menu-item-name" style="font-size:1.4rem">Formule Entrée-Plat ou Plat-Dessert</span>
-                            <span class="menu-item-price" style="font-size:1.1rem">19,90 €</span>
-                        </div>
-                        <p class="menu-item-desc">Au choix dans notre sélection du jour</p>
-                    </div>
-                    <div class="menu-item reveal" style="border-top-color:var(--or); transition-delay:0.2s; padding-top:1.5rem">
-                        <div class="menu-item-header">
-                            <span class="menu-item-name" style="font-size:1.4rem">Menu Complet</span>
-                            <span class="menu-item-price" style="font-size:1.1rem">24,90 €</span>
-                        </div>
-                        <p class="menu-item-desc">Entrée + Plat + Dessert · Midi et soir</p>
-                    </div>
-                </div>
-            </div>
-
-            <p class="menu-note reveal">Carte disponible en version complète sur demande · Allergènes disponibles auprès du service</p>
         </div>
+
     </section>
 
     {# ── GALERIE ── #}
@@ -703,7 +587,7 @@
     <section id="galerie">
         <div class="container">
             <p class="section-label reveal">Galerie</p>
-            <h2 class="section-title reveal">L'<em>atmosphère</em> du 44</h2>
+            <h2 class="section-title reveal">L'<em>atmosphère</em> de L'Épicurien</h2>
             <div class="ornement reveal"><div class="ornement-line"></div><div class="ornement-diamond"></div><div class="ornement-line right"></div></div>
 
             <div class="galerie-grid reveal">
@@ -745,7 +629,7 @@
                         </div>
                         <div>
                             <span class="resa-contact-label">Adresse</span>
-                            <span class="resa-contact-val">44 rue [Principale], 59113 Seclin</span>
+                            <span class="resa-contact-val">44 rue [Principale], 59000 Lille</span>
                         </div>
                     </div>
                     <div class="resa-contact-item">
@@ -754,12 +638,12 @@
                         </div>
                         <div>
                             <span class="resa-contact-label">Email</span>
-                            <span class="resa-contact-val"><a href="mailto:contact@le44deseclin.fr" style="color:inherit;text-decoration:none">contact@le44deseclin.fr</a></span>
+                            <span class="resa-contact-val"><a href="mailto:contact@lL'Épicurien.fr" style="color:inherit;text-decoration:none">contact@L'Épicurien.fr</a></span>
                         </div>
                     </div>
                 </div>
 
-                {{ form_start(form, {'attr': {'class': 'resa-form reveal', 'style': 'transition-delay:0.2s'}}) }}
+                {{ form_start(form, {'action': path('app_reserve'), 'attr': {'class': 'resa-form reveal', 'style': 'transition-delay:0.2s'}}) }}
                 <div class="form-row">
                     <div class="form-group">
                         {{ form_label(form.name) }}

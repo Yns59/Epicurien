@@ -1,16 +1,14 @@
-# yaml-language-server: $schema=vendor/symfony/dependency-injection/Loader/schema/services.schema.json
-# Configuration Docker Compose pour le projet "le44"
 services:
 
   # --- PHP (Le Cerveau) ---
   php:
-    build: ./docker/php
+    build: docker/php
     volumes:
       - .:/var/www:delegated # Partage du code source
     depends_on:
       - database
 
-  # --- NGINX (Le Réceptionniste) ---
+
   nginx:
     build: ./docker/nginx # Utilise le Dockerfile dans docker/nginx
     ports:
@@ -20,33 +18,17 @@ services:
     depends_on:
       - php
 
-  # --- POSTGRESQL (La Mémoire) ---
+  # --- POSTGRESQL  ---
   database:
     image: postgres:16-alpine # Version stable et légère
     environment:
-      POSTGRES_USER: le_44
-      POSTGRES_PASSWORD: le_44
-      POSTGRES_DB: le_44
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: test
     volumes:
       - db_data:/var/lib/postgresql/data # /data est OBLIGATOIRE
     ports:
       - "5432:5432"
-
-  adminer:
-    image: adminer:latest
-    depends_on:
-      - database
-    environment:
-      ADMINER_DESIGN: pepa-linha
-      ADMINER_DEFAULT_SERVER: database
-      ADMINER_DEFAULT_USER: le_44
-      ADMINER_DEFAULT_PASSWORD: le_44
-      ADMINER_DEFAULT_DB: le_44
-      ADMINER_PLUGINS: tables-filter frames dump-json edit-calendar tinymce
-    volumes:
-        - ./docker/adminer/login-servers.php:/var/www/html/plugins-enabled/login-servers.php
-    ports:
-      - "8888:8080"
 
 
 volumes:

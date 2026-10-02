@@ -42,7 +42,7 @@ class RegistrationController extends AbstractController
             $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
             $user->setPassword($hashedPassword);
 
-            // Sauvegarde via le repository (méthode save que nous avons ajoutée)
+
             $userRepository->save($user, true);
 
             $this->addFlash('success', 'Votre compte a bien été créé !');
@@ -50,7 +50,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
 
-        return $this->render('register.html.twig', [
+        return $this->render('user/register.html.twig', [
             'registrationForm' => $form->createView(),
             'error' => null
         ]);

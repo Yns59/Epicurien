@@ -21,7 +21,7 @@ RUN apk add --no-cache \
 
 # 3. ADD télécharge un fichier depuis une URL et l'ajoute dans le conteneur
 # Ici, on récupère un script génial qui simplifie l'installation des extensions PHP
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+RUN curl -sSLf https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o /usr/local/bin/install-php-extensions
 
 # 4. On donne le droit d'exécution au script qu'on vient de télécharger
 RUN chmod +x /usr/local/bin/install-php-extensions

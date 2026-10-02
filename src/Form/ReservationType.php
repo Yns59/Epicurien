@@ -41,7 +41,9 @@ class ReservationType extends AbstractType
             ])
             ->add('phone_number', TelType::class, [
                 'label' => 'Téléphone',
-                'required' => false,
+                'constraints' => [
+                    new NotBlank(message: 'Le téléphone est obligatoire.'),
+                ],
             ])
             ->add('date', DateType::class, [
                 'label' => 'Date',
